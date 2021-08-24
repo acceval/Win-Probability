@@ -14,8 +14,8 @@ CONS = 5
 INC = 0.01
 
 LOCAL_URL = 'http://127.0.0.1:5050/'
-HEROKU_URL = 'https://choice-model.herokuapp.com/'
-DEV_URL = 'http://office.smarttradzt.com:8080/'
+HEROKU_URL = 'https://win-probability.herokuapp.com/'
+# DEV_URL = 'http://office.smarttradzt.com:8080/'
 
 
 # env: local
