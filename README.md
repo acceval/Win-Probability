@@ -17,12 +17,12 @@ https://win-probability.herokuapp.com/price_model
 ```
 
 Input:
-1. File 
-2. msrp
-3. unitcost
-4. unitprice
-5. win
-6. units
+1. File : Path to input file. Sample file can be found at: https://raw.githubusercontent.com/acceval/Win-Probability/main/fleet_sales.csv.   
+2. msrp : MSRP column name in the file. The name can't contain space.
+3. unitcost : unitcost column name in the file. The name can't contain space.
+4. unitprice : unitprice column name in the file. The name can't contain space.
+5. win : win column name in the file. The name can't contain space.
+6. units : units column name in the file. The name can't contain space.
 
 ### How To Call
 
@@ -46,6 +46,19 @@ https://win-probability.herokuapp.com/segmented_model
 
 ### Parameters
 
+```
+{"file" :"https://raw.githubusercontent.com/acceval/Win-Probability/main/segmented_model.csv", "msrp":"MSRP", "unitcost":"Unit_Cost", "unitprice":"Unit_Price", "win":"Win", "units":"Units", "government":"Government"}
+```
+
+Input:
+1. File : Path to input file. Sample file can be found at: https://raw.githubusercontent.com/acceval/Win-Probability/main/segmented_model.csv.   
+2. msrp : MSRP column name in the file. The name can't contain space.
+3. unitcost : unitcost column name in the file. The name can't contain space.
+4. unitprice : unitprice column name in the file. The name can't contain space.
+5. win : win column name in the file. The name can't contain space.
+6. units : units column name in the file. The name can't contain space.
+7. government : government column name in the file. The name can't contain space. A flag indicatin that the transaction row belong to government. 1 for government transaction, 0 for corporate transaction.
+
 ### How To Call
 
 ```
@@ -67,6 +80,19 @@ https://win-probability.herokuapp.com/size_model
 ```
 
 ### Parameters
+
+```
+{"file" :"https://raw.githubusercontent.com/acceval/Win-Probability/main/size_model.csv", "msrp":"MSRP", "unitcost":"Unit_Cost", "unitprice":"Unit_Price", "win":"Win", "units":"Units", "government":"Government"}
+```
+
+Input:
+1. File : Path to input file. Sample file can be found at: https://raw.githubusercontent.com/acceval/Win-Probability/main/size_model.csv.   
+2. msrp : MSRP column name in the file. The name can't contain space.
+3. unitcost : unitcost column name in the file. The name can't contain space.
+4. unitprice : unitprice column name in the file. The name can't contain space.
+5. win : win column name in the file. The name can't contain space.
+6. units : units column name in the file. The name can't contain space.
+7. government : government column name in the file. The name can't contain space. A flag indicatin that the transaction row belong to government. 1 for government transaction, 0 for corporate transaction.
 
 ### How To Call
 
