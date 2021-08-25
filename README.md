@@ -12,6 +12,18 @@ https://win-probability.herokuapp.com/price_model
 
 ### Parameters
 
+```
+{"file" :"https://raw.githubusercontent.com/acceval/Win-Probability/main/fleet_sales.csv", "msrp":"MSRP", "unitcost":"Unit_Cost", "unitprice":"Unit_Price", "win":"Win", "units":"Units"}
+```
+
+Input:
+1. File 
+2. msrp
+3. unitcost
+4. unitprice
+5. win
+6. units
+
 ### How To Call
 
 ```
