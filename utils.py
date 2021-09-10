@@ -9,6 +9,25 @@ import inspect
 import config
 
 
+def is_float(value):
+  try:
+    float(value)
+    return True
+  except ValueError:
+    return False
+
+def is_int(val):
+    try:
+        int_ = int(val)
+        float_ = float(val)
+    except:
+        return False
+    if int_ == float_:
+        return True
+    else:
+        return float_ / int(float_) == 1
+
+
 def find(key, dictionary):
 
     for k, v in dictionary.items():

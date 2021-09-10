@@ -40,6 +40,8 @@ var['local']['unit_price'] = 'Unit_Price'
 var['local']['win'] = 'Win'
 var['local']['units'] = 'Units'
 var['local']['government'] = 'Government'
+var['local']['cons'] = 'prob > 0.6'
+var['local']['margin_threshold'] = '50'
 
  
 
@@ -51,3 +53,5 @@ var['prod']['unit_price'] = 'Unit_Price'
 var['prod']['win'] = 'Win'
 var['prod']['units'] = 'Units'
 var['prod']['government'] = 'Government'
+var['prod']['cons'] = 'prob > 0.6'
+var['prod']['margin_threshold'] = '50'

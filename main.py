@@ -46,6 +46,9 @@ if __name__== '__main__':
 	parser.add_argument("--units", "-u", help="Specify the units.", required=True)	
 	parser.add_argument("--model", "-m", help="Specify the model.", required=True)	
 	parser.add_argument("--government", "-g", help="Specify the government.", required=False)	
+	parser.add_argument("--cons", "-c", help="Specify the constraint.", required=False)		
+	parser.add_argument("--margin_threshold", "-t", help="Specify the constraint margin_threshold.", required=False)		
+
 	# parser.add_argument("--size", "-s", help="Specify the size.", required=False)		
 	args = parser.parse_args()
 
@@ -103,6 +106,19 @@ if __name__== '__main__':
 	else:
 		government = args.government
 
+	cons = None
+	if args.cons is None:
+		print("State the constraint!!")
+	else:
+		cons = args.cons
+
+	margin_threshold = None
+	if args.margin_threshold is None:
+		print("State the margin_threshold!!")
+	else:
+		margin_threshold = args.margin_threshold
+	
+
 	# size = None
 	# if args.size is None:
 	# 	print("State the size!!")
@@ -118,6 +134,8 @@ if __name__== '__main__':
 	print('units:',units)
 	print('model:',model)	
 	print('government:',government)
+	print('constraint:',cons)
+	print('margin_threshold:',margin_threshold)	
 	# print('size:',size)
 	print('-------------------------------------------')
 	
@@ -126,21 +144,21 @@ if __name__== '__main__':
 		if model=='price_model':
 
 			model = Model(env)		
-			output = model.price_model(file,msrp,unit_cost,unit_price,win,units)
+			output = model.price_model(file,msrp,unit_cost,unit_price,win,units,cons,margin_threshold)
 			print(type(output))
 			print(output)		
 
 		if model=='segmented_model':
 
 			model = Model(env)		
-			output = model.segmented_model(file,msrp,unit_cost,unit_price,win,units,government)
+			output = model.segmented_model(file,msrp,unit_cost,unit_price,win,units,government,cons,margin_threshold)
 			print(type(output))
 			print(output)		
 
 		if model=='size_model':
 
 			model = Model(env)		
-			output = model.size_model(file,msrp,unit_cost,unit_price,win,units,government)
+			output = model.size_model(file,msrp,unit_cost,unit_price,win,units,government,cons,margin_threshold)
 			print(type(output))
 			print(output)		
 

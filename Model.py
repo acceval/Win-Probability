@@ -35,7 +35,7 @@ class Model:
 	
 		return dataframe
 
-	def size_model(self,file,msrp,unit_cost,unit_price,win,units,government):
+	def size_model(self,file,msrp,unit_cost,unit_price,win,units,government,cons=None,margin_threshold=None):
 
 		msg = self.__class__.__name__+'.'+utils.get_function_caller()
 		self.log.print_(msg)
@@ -67,68 +67,15 @@ class Model:
 				cols = list(dataframe.columns)
 
 
-				if msrp not in cols and cols is not None:
+				check, error = self.check(cols,msrp,unit_cost,unit_price,win,units,cons,margin_threshold,government)
 
-					msg = msrp+' does not exist.'
+				if check==0:
+
+					msg = error
 					self.log.print_(msg)
-					print(msg)				
+					print(msg)
 
-					status = 0	
-					error = msg
-
-				elif unit_cost not in cols and cols is not None:
-
-					msg = unit_cost+' does not exist.'
-					self.log.print_(msg)
-					print(msg)				
-
-					status = 0	
-					error = msg
-
-				elif unit_price not in cols and cols is not None:
-
-					msg = unit_price+' does not exist.'
-					self.log.print_(msg)
-					print(msg)				
-
-					status = 0	
-					error = msg
-
-				elif win not in cols and cols is not None:
-
-					msg = win+' does not exist.'
-					self.log.print_(msg)
-					print(msg)				
-
-					status = 0	
-					error = msg			
-
-				elif units not in cols and cols is not None:
-
-					msg = units+' does not exist.'
-					self.log.print_(msg)
-					print(msg)				
-
-					status = 0	
-					error = msg
-
-				elif government not in cols and cols is not None:
-
-					msg = government+' does not exist.'
-					self.log.print_(msg)
-					print(msg)				
-
-					status = 0	
-					error = msg
-
-				# elif size not in cols:
-
-				# 	msg = size+' does not exist.'
-				# 	self.log.print_(msg)
-				# 	print(msg)				
-
-				# 	status = 0	
-				# 	error = msg
+					status = 0				
 
 				else:
 
@@ -137,11 +84,14 @@ class Model:
 
 						dataframe = self.data_cleaning(dataframe)
 
+						if margin_threshold is not None:
+							margin_threshold = float(margin_threshold)
+
 
 
 					except Exception as e:
 
-						msg = 'Error when cleaning dataframe.'
+						msg = 'Error when perform modeling.'
 						self.log.print_(msg)
 						print(msg)
 						print(e)
@@ -172,7 +122,7 @@ class Model:
 						x0 = np.array([1,1,1])
 						sol = minimize(objective,x0,options={'disp':True})
 						xOpt = sol.x
-						print(xOpt)
+						# print(xOpt)
 
 						msrp = dataframe[msrp]
 						unit_cost = dataframe[unit_cost]
@@ -189,15 +139,24 @@ class Model:
 
 						# print(df)
 
-						optimal_price_ratio = df.loc[df['unit_margin']==df['unit_margin'].max()]['price_ratio'].values[0]
-						actual_price = optimal_price_ratio*msrp_
-						probability = 1/(1+np.exp(xOpt[0]+(xOpt[1]*optimal_price_ratio)))
-						margin = (actual_price-unit_cost_)*probability
+						if cons is not None:
 
-						print('optimal_price_ratio:',optimal_price_ratio)
-						print('actual_price:',actual_price)
-						print('probability:',probability)
-						print('margin:',margin)
+							self.query(df,xOpt,msrp_,unit_cost_,cons,margin_threshold)							
+
+							optimal_price_ratio, actual_price, probability, margin = self.query(df,xOpt,msrp_,unit_cost_,cons,margin_threshold)							
+
+						else:
+
+							optimal_price_ratio = df.loc[df['unit_margin']==df['unit_margin'].max()]['price_ratio'].values[0]
+							actual_price = optimal_price_ratio*msrp_
+							probability = 1/(1+np.exp(xOpt[0]+(xOpt[1]*optimal_price_ratio)))
+							margin = (actual_price-unit_cost_)*probability
+
+
+						# print('optimal_price_ratio:',optimal_price_ratio)
+						# print('actual_price:',actual_price)
+						# print('probability:',probability)
+						# print('margin:',margin)
 
 						result['government'] = dict()
 
@@ -205,6 +164,9 @@ class Model:
 						result['government']['parameters']['intercept'] = xOpt[0]
 						result['government']['parameters']['price'] = xOpt[1]
 						result['government']['parameters']['size'] = xOpt[2]
+
+						result['government']['constraint'] = cons
+						result['government']['margin_threshold'] = margin_threshold						
 
 						result['government']['suggestion'] = dict()
 						result['government']['suggestion']['optimal_price_ratio'] = optimal_price_ratio
@@ -226,12 +188,12 @@ class Model:
 						    return -f(x)
 
 						x0 = np.array([1,1,1])
-						f(x0)
+						# f(x0)
 
 						sol = minimize(objective,x0,options={'disp':True})
 
 						xOpt = sol.x
-						print(xOpt)
+						# print(xOpt)
 
 						xs = np.arange(0.5,1.1,config.INC)
 						probs = [1/(1+np.exp(xOpt[0]+(xOpt[1]*x)+(xOpt[2]*config.CONS))) for x in xs]	
@@ -242,15 +204,23 @@ class Model:
 
 						# print(df)
 
-						optimal_price_ratio = df.loc[df['unit_margin']==df['unit_margin'].max()]['price_ratio'].values[0]
-						actual_price = optimal_price_ratio*msrp_
-						probability = 1/(1+np.exp(xOpt[0]+(xOpt[1]*optimal_price_ratio)))
-						margin = (actual_price-unit_cost_)*probability
+						if cons is not None:
 
-						print('optimal_price_ratio:',optimal_price_ratio)
-						print('actual_price:',actual_price)
-						print('probability:',probability)
-						print('margin:',margin)
+							optimal_price_ratio, actual_price, probability, margin = self.query(df,xOpt,msrp_,unit_cost_,cons,margin_threshold)														
+
+						else:
+
+							optimal_price_ratio = df.loc[df['unit_margin']==df['unit_margin'].max()]['price_ratio'].values[0]
+							actual_price = optimal_price_ratio*msrp_
+							probability = 1/(1+np.exp(xOpt[0]+(xOpt[1]*optimal_price_ratio)))
+							margin = (actual_price-unit_cost_)*probability
+
+
+
+						# print('optimal_price_ratio:',optimal_price_ratio)
+						# print('actual_price:',actual_price)
+						# print('probability:',probability)
+						# print('margin:',margin)
 
 						result['corporate'] = dict()
 
@@ -258,6 +228,9 @@ class Model:
 						result['corporate']['parameters']['intercept'] = xOpt[0]
 						result['corporate']['parameters']['price'] = xOpt[1]
 						result['corporate']['parameters']['size'] = xOpt[2]				
+
+						result['corporate']['constraint'] = cons
+						result['corporate']['margin_threshold'] = margin_threshold						
 
 						result['corporate']['suggestion'] = dict()
 						result['corporate']['suggestion']['optimal_price_ratio'] = optimal_price_ratio
@@ -293,7 +266,7 @@ class Model:
 
 
 
-	def segmented_model(self,file,msrp,unit_cost,unit_price,win,units,government):
+	def segmented_model(self,file,msrp,unit_cost,unit_price,win,units,government,cons=None,margin_threshold=None):
 
 		msg = self.__class__.__name__+'.'+utils.get_function_caller()
 		self.log.print_(msg)
@@ -324,59 +297,16 @@ class Model:
 
 				cols = list(dataframe.columns)
 
-				if msrp not in cols and cols is not None:
+				check, error = self.check(cols,msrp,unit_cost,unit_price,win,units,cons,margin_threshold,government)
 
-					msg = msrp+' does not exist.'
+				if check==0:
+
+					msg = error
 					self.log.print_(msg)
-					print(msg)				
+					print(msg)
 
-					status = 0	
-					error = msg
+					status = 0					
 
-				elif unit_cost not in cols and cols is not None:
-
-					msg = unit_cost+' does not exist.'
-					self.log.print_(msg)
-					print(msg)				
-
-					status = 0	
-					error = msg
-
-				elif unit_price not in cols and cols is not None:
-
-					msg = unit_price+' does not exist.'
-					self.log.print_(msg)
-					print(msg)				
-
-					status = 0	
-					error = msg
-
-				elif win not in cols and cols is not None:
-
-					msg = win+' does not exist.'
-					self.log.print_(msg)
-					print(msg)				
-
-					status = 0	
-					error = msg			
-
-				elif units not in cols and cols is not None:
-
-					msg = units+' does not exist.'
-					self.log.print_(msg)
-					print(msg)				
-
-					status = 0	
-					error = msg
-
-				elif government not in cols and cols is not None:
-
-					msg = government+' does not exist.'
-					self.log.print_(msg)
-					print(msg)				
-
-					status = 0	
-					error = msg
 
 				else:
 
@@ -385,10 +315,14 @@ class Model:
 
 						dataframe = self.data_cleaning(dataframe)
 
+						if margin_threshold is not None:
+							margin_threshold = float(margin_threshold)
+
+
 					except Exception as e:
 
 
-						msg = 'Error when cleaning dataframe.'
+						msg = 'Error when perform modeling.'
 						self.log.print_(msg)
 						print(msg)
 						print(e)
@@ -434,15 +368,22 @@ class Model:
 						df = pd.DataFrame([xs,probs,margin_per_unit]).T
 						df.columns = ['price_ratio','prob','unit_margin']
 
-						optimal_price_ratio = df.loc[df['unit_margin']==df['unit_margin'].max()]['price_ratio'].values[0]
-						actual_price = optimal_price_ratio*msrp_
-						probability = 1/(1+np.exp(xOpt[0]+(xOpt[1]*optimal_price_ratio)))
-						margin = (actual_price-unit_cost_)*probability
+						if cons is not None:
 
-						print('optimal_price_ratio:',optimal_price_ratio)
-						print('actual_price:',actual_price)
-						print('probability:',probability)
-						print('margin:',margin)
+							optimal_price_ratio, actual_price, probability, margin = self.query(df,xOpt,msrp_,unit_cost_,cons,margin_threshold)							
+
+						else:
+
+							optimal_price_ratio = df.loc[df['unit_margin']==df['unit_margin'].max()]['price_ratio'].values[0]
+							actual_price = optimal_price_ratio*msrp_
+							probability = 1/(1+np.exp(xOpt[0]+(xOpt[1]*optimal_price_ratio)))
+							margin = (actual_price-unit_cost_)*probability
+
+
+						# print('optimal_price_ratio:',optimal_price_ratio)
+						# print('actual_price:',actual_price)
+						# print('probability:',probability)
+						# print('margin:',margin)
 
 						result['government'] = dict()
 
@@ -450,6 +391,9 @@ class Model:
 						result['government']['parameters']['intercept'] = xOpt[0]
 						result['government']['parameters']['price'] = xOpt[1]
 
+						result['government']['constraint'] = cons						
+						result['government']['margin_threshold'] = margin_threshold
+					
 						result['government']['suggestion'] = dict()
 						result['government']['suggestion']['optimal_price_ratio'] = optimal_price_ratio
 						result['government']['suggestion']['actual_price'] = actual_price
@@ -470,12 +414,12 @@ class Model:
 						    return -f(x)
 
 						x0 = np.array([1,1])
-						f(x0)
+						# f(x0)
 
 						sol = minimize(objective,x0,options={'disp':True})
 
 						xOpt = sol.x
-						print(xOpt)
+						# print(xOpt)
 
 						xs = np.arange(0.5,1.1,config.INC)
 						probs = [1/(1+np.exp(xOpt[0]+(xOpt[1]*x))) for x in xs]
@@ -484,21 +428,30 @@ class Model:
 						df = pd.DataFrame([xs,probs,margin_per_unit]).T
 						df.columns = ['price_ratio','prob','unit_margin']
 
-						optimal_price_ratio = df.loc[df['unit_margin']==df['unit_margin'].max()]['price_ratio'].values[0]
-						actual_price = optimal_price_ratio*msrp_
-						probability = 1/(1+np.exp(xOpt[0]+(xOpt[1]*optimal_price_ratio)))
-						margin = (actual_price-unit_cost_)*probability
+						if cons is not None:
 
-						print('optimal_price_ratio:',optimal_price_ratio)
-						print('actual_price:',actual_price)
-						print('probability:',probability)
-						print('margin:',margin)
+							optimal_price_ratio, actual_price, probability, margin = self.query(df,xOpt,msrp_,unit_cost_,cons,margin_threshold)							
+
+						else:
+
+							optimal_price_ratio = df.loc[df['unit_margin']==df['unit_margin'].max()]['price_ratio'].values[0]
+							actual_price = optimal_price_ratio*msrp_
+							probability = 1/(1+np.exp(xOpt[0]+(xOpt[1]*optimal_price_ratio)))
+							margin = (actual_price-unit_cost_)*probability
+
+						# print('optimal_price_ratio:',optimal_price_ratio)
+						# print('actual_price:',actual_price)
+						# print('probability:',probability)
+						# print('margin:',margin)
 
 						result['corporate'] = dict()
 
 						result['corporate']['parameters'] = dict()
 						result['corporate']['parameters']['intercept'] = xOpt[0]
 						result['corporate']['parameters']['price'] = xOpt[1]
+
+						result['corporate']['constraint'] = cons
+						result['corporate']['margin_threshold'] = margin_threshold
 
 						result['corporate']['suggestion'] = dict()
 						result['corporate']['suggestion']['optimal_price_ratio'] = optimal_price_ratio
@@ -537,7 +490,7 @@ class Model:
 
 
 
-	def price_model(self,file,msrp,unit_cost,unit_price,win,units):
+	def price_model(self,file,msrp,unit_cost,unit_price,win,units,cons=None,margin_threshold=None):
 
 		msg = self.__class__.__name__+'.'+utils.get_function_caller()
 		self.log.print_(msg)
@@ -547,6 +500,7 @@ class Model:
 		result = dict()
 
 		if isinstance(file,str) and isinstance(msrp,str) and isinstance(unit_cost,str) and isinstance(unit_price,str) and isinstance(win,str) and isinstance(units,str):			
+
 
 			cols = []
 
@@ -568,62 +522,29 @@ class Model:
 
 				cols = list(dataframe.columns)
 
+				check, error = self.check(cols,msrp,unit_cost,unit_price,win,units,cons,margin_threshold)
 
-				if msrp not in cols and cols is not None:
+				if check==0:
 
-					msg = msrp+' does not exist.'
+					msg = error
 					self.log.print_(msg)
-					print(msg)				
+					print(msg)
 
-					status = 0	
-					error = msg
-
-				elif unit_cost not in cols and cols is not None:
-
-					msg = unit_cost+' does not exist.'
-					self.log.print_(msg)
-					print(msg)				
-
-					status = 0	
-					error = msg
-
-				elif unit_price not in cols and cols is not None:
-
-					msg = unit_price+' does not exist.'
-					self.log.print_(msg)
-					print(msg)				
-
-					status = 0	
-					error = msg
-
-				elif win not in cols and cols is not None:
-
-					msg = win+' does not exist.'
-					self.log.print_(msg)
-					print(msg)				
-
-					status = 0	
-					error = msg
-
-				elif units not in cols and cols is not None:
-
-					msg = units+' does not exist.'
-					self.log.print_(msg)
-					print(msg)				
-
-					status = 0	
-					error = msg
+					status = 0					
 
 				else:
 
 					try:
 
-						dataframe = self.data_cleaning(dataframe)
+						dataframe = self.data_cleaning(dataframe)						
+					
+						if margin_threshold is not None:
+							margin_threshold = float(margin_threshold)
 
 					except Exception as e:
 
 
-						msg = 'Error when cleaning dataframe.'
+						msg = 'Error when perform modeling.'
 						self.log.print_(msg)
 						print(msg)
 						print(e)
@@ -657,6 +578,9 @@ class Model:
 						sol = minimize(objective,x0,options={'disp':True})
 						xOpt = sol.x
 
+						# print('xOpt:')
+						# print(xOpt)
+
 						# dataframe['win_probability'] = 1/(1+np.exp(xOpt[0]+dataframe['Price_Ratio']*xOpt[1]))    
 						# dataframe['likelihood'] = (dataframe[win]*dataframe[win])+(1-dataframe[win])*(1-dataframe['win_probability'])
 						# dataframe['ln_likelihood'] = np.log(dataframe['likelihood'])
@@ -677,10 +601,20 @@ class Model:
 						df = pd.DataFrame([xs,probs,margin_per_unit]).T
 						df.columns = ['price_ratio','prob','unit_margin']
 
-						optimal_price_ratio = df.loc[df['unit_margin']==df['unit_margin'].max()]['price_ratio'].values[0]
-						actual_price = optimal_price_ratio*msrp_
-						probability = 1/(1+np.exp(xOpt[0]+(xOpt[1]*optimal_price_ratio)))
-						margin = (actual_price-unit_cost_)*probability
+						# print(df)
+						# df.to_csv('df.csv',index=False)
+
+						if cons is not None:
+
+							optimal_price_ratio, actual_price, probability, margin = self.query(df,xOpt,msrp_,unit_cost_,cons,margin_threshold)							
+
+						else:
+
+							optimal_price_ratio = df.loc[df['unit_margin']==df['unit_margin'].max()]['price_ratio'].values[0]
+							actual_price = optimal_price_ratio*msrp_
+							probability = 1/(1+np.exp(xOpt[0]+(xOpt[1]*optimal_price_ratio)))
+							margin = (actual_price-unit_cost_)*probability
+
 
 						print('optimal_price_ratio:',optimal_price_ratio)
 						print('actual_price:',actual_price)
@@ -690,6 +624,9 @@ class Model:
 						result['parameters'] = dict()					
 						result['parameters']['intercept'] = xOpt[0]
 						result['parameters']['price'] = xOpt[1]
+
+						result['constraint'] = cons
+						result['margin_threshold'] = margin_threshold
 
 						result['suggestion'] = dict()
 						result['suggestion']['optimal_price_ratio'] = optimal_price_ratio
@@ -722,3 +659,172 @@ class Model:
 
 		return return_json
 
+	def check(self,cols,msrp,unit_cost,unit_price,win,units,cons=None,margin_threshold=None,government=None):
+
+		msg = self.__class__.__name__+'.'+utils.get_function_caller()
+		self.log.print_(msg)
+		print(msg)
+
+		if msrp not in cols and cols is not None:
+
+			msg = msrp+' does not exist.'
+			self.log.print_(msg)
+			print(msg)				
+
+			return 0, msg
+
+		elif unit_cost not in cols and cols is not None:
+
+			msg = unit_cost+' does not exist.'
+			self.log.print_(msg)
+			print(msg)				
+
+			return 0, msg
+
+		elif unit_price not in cols and cols is not None:
+
+			msg = unit_price+' does not exist.'
+			self.log.print_(msg)
+			print(msg)				
+
+			return 0, msg
+
+		elif win not in cols and cols is not None:
+
+			msg = win+' does not exist.'
+			self.log.print_(msg)
+			print(msg)				
+
+			return 0, msg
+
+		elif units not in cols and cols is not None:
+
+			msg = units+' does not exist.'
+			self.log.print_(msg)
+			print(msg)				
+
+			return 0, msg
+
+		elif government is not None and government not in cols and cols is not None:
+
+			msg = government+' does not exist.'
+			self.log.print_(msg)
+			print(msg)				
+
+			return 0, msg
+
+		elif cons is not None:
+
+			if not isinstance(cons,str):
+
+				msg = str(cons)+' is invalid.'
+				self.log.print_(msg)
+				print(msg)				
+
+				return 0, msg
+
+
+			if len(cons.split(' '))!=3:
+
+				msg = cons+' is invalid.'
+				self.log.print_(msg)
+				print(msg)				
+
+				return 0, msg
+
+			elif cons.split(' ')[1]!='prob' and cons.split(' ')[1] not in ['<','<=','>=','>'] and (not utils.is_float(cons.split(' ')[2]) or not utils.is_int(cons.split(' ')[2])) :
+
+				msg = cons+' is invalid.'
+				self.log.print_(msg)
+				print(msg)				
+
+				return 0, msg
+
+
+			elif not(margin_threshold is not None and (not isinstance(margin_threshold,str) or not isinstance(margin_threshold,int) or not isinstance(margin_threshold,float))):
+
+				msg = 'Margin Threshold must be a numeric.'
+				self.log.print_(msg)
+				print(msg)				
+				
+				return 0, msg
+
+
+		elif margin_threshold is not None and cons is None:
+
+			msg = 'Margin Threshold is needed.'
+			self.log.print_(msg)
+			print(msg)				
+
+			return 0, msg
+
+		elif not isinstance(margin_threshold,str) or not isinstance(margin_threshold,int) or not isinstance(margin_threshold,float):
+
+			msg = margin_threshold+' is invalid.'
+			self.log.print_(msg)
+			print(msg)				
+
+			return 0, msg
+
+		else:
+
+			pass
+
+		return 1, ''			
+
+
+
+
+	def query(self,df,params,msrp_,unit_cost_,cons=None,margin_threshold=None):
+
+		msg = self.__class__.__name__+'.'+utils.get_function_caller()
+		self.log.print_(msg)
+		print(msg)
+
+		optimal_price_ratio = None
+		actual_price = None
+		probability = None
+		margin = None
+
+		try:
+
+			field = cons.split(' ')[0]
+			opt = cons.split(' ')[1]
+			val = cons.split(' ')[2]
+
+			_str = "df[(df['"+str(field)+"'] "+str(opt)+" "+str(val)+")]"
+
+			df = pd.eval(_str)
+
+			if df.shape[0]>0:
+
+				optimal_price_ratio = df.loc[df['unit_margin']==df['unit_margin'].max()]['price_ratio'].values[0]
+				actual_price = optimal_price_ratio*msrp_
+				probability = 1/(1+np.exp(params[0]+(params[1]*optimal_price_ratio)))
+				margin = (actual_price-unit_cost_)*probability
+
+				if margin_threshold is not None:
+
+					lower_margin = margin-margin_threshold
+
+					df_ = df[df['unit_margin']>=lower_margin]
+
+					if df_.shape[0]>0:
+
+						optimal_price_ratio = df_.loc[df_['prob']==df_['prob'].max()]['price_ratio'].values[0]
+						actual_price = optimal_price_ratio*msrp_
+						probability = 1/(1+np.exp(params[0]+(params[1]*optimal_price_ratio)))
+						margin = (actual_price-unit_cost_)*probability
+
+			# print(optimal_price_ratio, actual_price, probability, margin)
+
+			return optimal_price_ratio, actual_price, probability, margin
+
+		except Exception as e:
+
+			msg = 'Error when query dataset.'
+			self.log.print_(msg)
+			self.log.print_(e)
+
+			print(msg)
+			print(e)
