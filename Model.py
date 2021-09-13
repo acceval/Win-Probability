@@ -727,7 +727,7 @@ class Model:
 
 			return 0, msg
 
-		if cons is not None and margin_threshold is not None:
+		if cons is not None:
 
 
 			if not isinstance(cons,str):
