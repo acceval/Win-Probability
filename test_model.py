@@ -23,80 +23,80 @@ model = Model(env)
     
 
 # happy path
-# def test_price_model():
+def test_price_model():
 
-#     output = model.price_model(file,msrp,unit_cost,unit_price,win,units)
-#     print(type(output))
-#     print(output)       
+    output = model.price_model(file,msrp,unit_cost,unit_price,win,units)
+    print(type(output))
+    print(output)       
     
-#     assert isinstance(output, str)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==1
-#     assert output_json['error'] is None or output_json['error'] == ''
+    assert output_json['status']==1
+    assert output_json['error'] is None or output_json['error'] == ''
 
-#     assert len(output_json['data'][0])==4
+    assert len(output_json['data'][0])==4
 
-#     assert 'parameters' in output_json['data'][0].keys()    
-#     assert 'constraint' in output_json['data'][0].keys()
-#     assert 'margin_threshold' in output_json['data'][0].keys()
-#     assert 'suggestion' in output_json['data'][0].keys()
+    assert 'parameters' in output_json['data'][0].keys()    
+    assert 'constraint' in output_json['data'][0].keys()
+    assert 'margin_threshold' in output_json['data'][0].keys()
+    assert 'suggestion' in output_json['data'][0].keys()
 
-#     assert len(output_json['data'][0]['parameters'].keys()) == 2
-#     assert len(output_json['data'][0]['suggestion'].keys()) == 4
+    assert len(output_json['data'][0]['parameters'].keys()) == 2
+    assert len(output_json['data'][0]['suggestion'].keys()) == 4
 
-# def test_price_model_cons():
+def test_price_model_cons():
 
-#     output = model.price_model(file,msrp,unit_cost,unit_price,win,units,cons)
-#     print(type(output))
-#     print(output)       
+    output = model.price_model(file,msrp,unit_cost,unit_price,win,units,cons)
+    print(type(output))
+    print(output)       
     
-#     assert isinstance(output, str)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==1
-#     assert output_json['error'] is None or output_json['error'] == ''
+    assert output_json['status']==1
+    assert output_json['error'] is None or output_json['error'] == ''
     
-#     assert len(output_json['data'][0])==4
+    assert len(output_json['data'][0])==4
 
-#     assert 'parameters' in output_json['data'][0].keys()    
-#     assert 'constraint' in output_json['data'][0].keys()
-#     assert 'margin_threshold' in output_json['data'][0].keys()
-#     assert 'suggestion' in output_json['data'][0].keys()
+    assert 'parameters' in output_json['data'][0].keys()    
+    assert 'constraint' in output_json['data'][0].keys()
+    assert 'margin_threshold' in output_json['data'][0].keys()
+    assert 'suggestion' in output_json['data'][0].keys()
 
 
-#     assert len(output_json['data'][0]['parameters'].keys()) == 2
-#     assert len(output_json['data'][0]['suggestion'].keys()) == 4
+    assert len(output_json['data'][0]['parameters'].keys()) == 2
+    assert len(output_json['data'][0]['suggestion'].keys()) == 4
 
-# this one is stuck
-# def test_price_model_cons_margin_threshold():
+this one is stuck
+def test_price_model_cons_margin_threshold():
 
-#     output = model.price_model(file,msrp,unit_cost,unit_price,win,units,cons,margin_threshold)
-#     print(type(output))
-#     print(output)       
+    output = model.price_model(file,msrp,unit_cost,unit_price,win,units,cons,margin_threshold)
+    print(type(output))
+    print(output)       
     
-#     assert isinstance(output, str)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==1
-#     assert output_json['error'] is None or output_json['error'] == ''
+    assert output_json['status']==1
+    assert output_json['error'] is None or output_json['error'] == ''
     
-#     assert len(output_json['data'][0])==4
+    assert len(output_json['data'][0])==4
 
-#     assert 'parameters' in output_json['data'][0].keys()    
-#     assert 'constraint' in output_json['data'][0].keys()
-#     assert 'margin_threshold' in output_json['data'][0].keys()
-#     assert 'suggestion' in output_json['data'][0].keys()
+    assert 'parameters' in output_json['data'][0].keys()    
+    assert 'constraint' in output_json['data'][0].keys()
+    assert 'margin_threshold' in output_json['data'][0].keys()
+    assert 'suggestion' in output_json['data'][0].keys()
 
 
-#     assert len(output_json['data'][0]['parameters'].keys()) == 2
-#     assert len(output_json['data'][0]['suggestion'].keys()) == 4
+    assert len(output_json['data'][0]['parameters'].keys()) == 2
+    assert len(output_json['data'][0]['suggestion'].keys()) == 4
 
     
 
@@ -326,308 +326,308 @@ def test_size_model_cons_margin_threshold():
 
 
 
-# # sad path
+# sad path
 
-# def test_file():
+def test_file():
 
-#     output = model.price_model('file.csv',msrp,unit_cost,unit_price,win,units)
+    output = model.price_model('file.csv',msrp,unit_cost,unit_price,win,units)
 
-#     assert isinstance(output, str)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
-
-
-#     output = model.segmented_model('file.csv',msrp,unit_cost,unit_price,win,units,government)
-#     assert isinstance(output, str)
-
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
-
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
-
-#     output = model.segmented_model('file.csv',msrp,unit_cost,unit_price,win,units,government)
-#     assert isinstance(output, str)
-
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
-
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
 
 
+    output = model.segmented_model('file.csv',msrp,unit_cost,unit_price,win,units,government)
+    assert isinstance(output, str)
 
-# def test_msrp():
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-#     file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/fleet_sales.csv'
-#     output = model.price_model(file,'msrp',unit_cost,unit_price,win,units)
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
 
-#     assert isinstance(output, str)
+    output = model.segmented_model('file.csv',msrp,unit_cost,unit_price,win,units,government)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
 
-#     file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/segmented_model.csv'
-#     output = model.segmented_model(file,'msrp',unit_cost,unit_price,win,units,government)
-#     assert isinstance(output, str)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+def test_msrp():
 
-#     file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/size_model.csv'
-#     output = model.segmented_model(file,'msrp',unit_cost,unit_price,win,units,government)
-#     assert isinstance(output, str)
+    file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/fleet_sales.csv'
+    output = model.price_model(file,'msrp',unit_cost,unit_price,win,units)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
+    assert isinstance(output, str)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
+
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
+
+    file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/segmented_model.csv'
+    output = model.segmented_model(file,'msrp',unit_cost,unit_price,win,units,government)
+    assert isinstance(output, str)
+
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
+
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
+
+    file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/size_model.csv'
+    output = model.segmented_model(file,'msrp',unit_cost,unit_price,win,units,government)
+    assert isinstance(output, str)
+
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
+
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
     
     
-# def test_unit_cost():
+def test_unit_cost():
 
-#     output = model.price_model(file,msrp,'unit_cost',unit_price,win,units)
+    output = model.price_model(file,msrp,'unit_cost',unit_price,win,units)
 
-#     assert isinstance(output, str)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
-
-
-#     output = model.segmented_model('segmented_model.csv',msrp,'unit_cost',unit_price,win,units,government)
-#     assert isinstance(output, str)
-
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
-
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
 
 
-#     output = model.segmented_model('size_model.csv',msrp,'unit_cost',unit_price,win,units,government)
-#     assert isinstance(output, str)
+    output = model.segmented_model('segmented_model.csv',msrp,'unit_cost',unit_price,win,units,government)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
+
+
+    output = model.segmented_model('size_model.csv',msrp,'unit_cost',unit_price,win,units,government)
+    assert isinstance(output, str)
+
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
+
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
     
     
-# def test_unit_price():
+def test_unit_price():
 
-#     output = model.price_model(file,msrp,unit_cost,'unit_price',win,units)
+    output = model.price_model(file,msrp,unit_cost,'unit_price',win,units)
 
-#     assert isinstance(output, str)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
-
-
-#     output = model.segmented_model('segmented_model.csv',msrp,unit_cost,'unit_price',win,units,government)
-#     assert isinstance(output, str)
-
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
-
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
 
 
-#     output = model.segmented_model('size_model.csv',msrp,unit_cost,'unit_price',win,units,government)
-#     assert isinstance(output, str)
+    output = model.segmented_model('segmented_model.csv',msrp,unit_cost,'unit_price',win,units,government)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
-    
-    
-
-# def test_win():
-
-#     output = model.price_model(file,msrp,unit_cost,unit_price,'win',units)
-
-#     assert isinstance(output, str)
-
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
-
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
 
 
-#     output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,'win',units,government)
-#     assert isinstance(output, str)
+    output = model.segmented_model('size_model.csv',msrp,unit_cost,'unit_price',win,units,government)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
-
-
-#     output = model.segmented_model('size_model.csv',msrp,unit_cost,unit_price,'win',units,government)
-#     assert isinstance(output, str)
-
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
-
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
     
     
 
-# def test_units():
+def test_win():
 
-#     output = model.price_model(file,msrp,unit_cost,unit_price,win,'units')
+    output = model.price_model(file,msrp,unit_cost,unit_price,'win',units)
 
-#     assert isinstance(output, str)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
-
-
-#     output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,'units',government)
-#     assert isinstance(output, str)
-
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
-
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
 
 
-#     output = model.segmented_model('size_model.csv',msrp,unit_cost,unit_price,win,'units',government)
-#     assert isinstance(output, str)
+    output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,'win',units,government)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
+
+
+    output = model.segmented_model('size_model.csv',msrp,unit_cost,unit_price,'win',units,government)
+    assert isinstance(output, str)
+
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
+
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
+    
     
 
-# def test_government():
+def test_units():
 
-#     output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,'gov')
-#     assert isinstance(output, str)
+    output = model.price_model(file,msrp,unit_cost,unit_price,win,'units')
 
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
+    assert isinstance(output, str)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-
-#     output = model.segmented_model('size_model.csv',msrp,unit_cost,unit_price,win,units,'gov')
-#     assert isinstance(output, str)
-
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
-
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
-
-#     output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,['gov'])
-#     assert isinstance(output, str)
-
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
-
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
 
 
-#     output = model.segmented_model('size_model.csv',msrp,unit_cost,unit_price,win,units,['gov'])
-#     assert isinstance(output, str)
+    output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,'units',government)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
+
+
+    output = model.segmented_model('size_model.csv',msrp,unit_cost,unit_price,win,'units',government)
+    assert isinstance(output, str)
+
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
+
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
     
 
-# def test_cons():
+def test_government():
 
-#     output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,'cons')
-#     assert isinstance(output, str)
+    output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,'gov')
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
-
-#     output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,['cons'])
-#     assert isinstance(output, str)
-
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
-
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
 
 
-#     output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,'abc 2 3')
-#     assert isinstance(output, str)
+    output = model.segmented_model('size_model.csv',msrp,unit_cost,unit_price,win,units,'gov')
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
 
-# def test_margin_threshold():
+    output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,['gov'])
+    assert isinstance(output, str)
 
-#     output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,cons,'123')
-#     assert isinstance(output, str)
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
 
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
-
-#     assert output_json['status']==1
-#     assert output_json['error'] is None or output_json['error'] == ''
-
-#     output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,cons,['123'])
-#     assert isinstance(output, str)
-
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
-
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
 
 
-#     output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,cons,'abc')
-#     assert isinstance(output, str)
+    output = model.segmented_model('size_model.csv',msrp,unit_cost,unit_price,win,units,['gov'])
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)    
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==0
-#     assert output_json['error'] is not None or output_json['error'] != ''
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
+    
+
+def test_cons():
+
+    output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,'cons')
+    assert isinstance(output, str)
+
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
+
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
+
+    output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,['cons'])
+    assert isinstance(output, str)
+
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
+
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
+
+
+    output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,'abc 2 3')
+    assert isinstance(output, str)
+
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
+
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
+
+def test_margin_threshold():
+
+    output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,cons,'123')
+    assert isinstance(output, str)
+
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
+
+    assert output_json['status']==1
+    assert output_json['error'] is None or output_json['error'] == ''
+
+    output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,cons,['123'])
+    assert isinstance(output, str)
+
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
+
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
+
+
+    output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,cons,'abc')
+    assert isinstance(output, str)
+
+    output_json = json.loads(output)    
+    assert isinstance(output_json, dict)
+
+    assert output_json['status']==0
+    assert output_json['error'] is not None or output_json['error'] != ''
     
 
