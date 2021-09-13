@@ -72,7 +72,7 @@ model = Model(env)
 #     assert len(output_json['data'][0]['parameters'].keys()) == 2
 #     assert len(output_json['data'][0]['suggestion'].keys()) == 4
 
-
+# this one is stuck
 # def test_price_model_cons_margin_threshold():
 
 #     output = model.price_model(file,msrp,unit_cost,unit_price,win,units,cons,margin_threshold)
@@ -100,233 +100,233 @@ model = Model(env)
 
     
 
-# def test_segmented_model():
+def test_segmented_model():
 
-#     file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/segmented_model.csv'
-#     output = model.segmented_model(file,msrp,unit_cost,unit_price,win,units,government)
-#     print(type(output))
-#     print(output)       
+    file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/segmented_model.csv'
+    output = model.segmented_model(file,msrp,unit_cost,unit_price,win,units,government)
+    print(type(output))
+    print(output)       
     
-#     assert isinstance(output, str)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==1
-#     assert output_json['error'] is None or output_json['error'] == ''
+    assert output_json['status']==1
+    assert output_json['error'] is None or output_json['error'] == ''
 
-#     assert len(output_json['data'][0])==2
+    assert len(output_json['data'][0])==2
 
-#     assert 'parameters' in output_json['data'][0]['government'].keys()    
-#     assert 'constraint' in output_json['data'][0]['government'].keys()
-#     assert 'margin_threshold' in output_json['data'][0]['government'].keys()
-#     assert 'suggestion' in output_json['data'][0]['government'].keys()
+    assert 'parameters' in output_json['data'][0]['government'].keys()    
+    assert 'constraint' in output_json['data'][0]['government'].keys()
+    assert 'margin_threshold' in output_json['data'][0]['government'].keys()
+    assert 'suggestion' in output_json['data'][0]['government'].keys()
 
-#     assert 'parameters' in output_json['data'][0]['corporate'].keys()    
-#     assert 'constraint' in output_json['data'][0]['corporate'].keys()
-#     assert 'margin_threshold' in output_json['data'][0]['corporate'].keys()
-#     assert 'suggestion' in output_json['data'][0]['corporate'].keys()
+    assert 'parameters' in output_json['data'][0]['corporate'].keys()    
+    assert 'constraint' in output_json['data'][0]['corporate'].keys()
+    assert 'margin_threshold' in output_json['data'][0]['corporate'].keys()
+    assert 'suggestion' in output_json['data'][0]['corporate'].keys()
 
-#     assert 'government' in output_json['data'][0].keys()
-#     assert 'corporate' in output_json['data'][0].keys()
+    assert 'government' in output_json['data'][0].keys()
+    assert 'corporate' in output_json['data'][0].keys()
 
-#     assert len(output_json['data'][0]['government'].keys())==4
-#     assert len(output_json['data'][0]['corporate'].keys())==4
+    assert len(output_json['data'][0]['government'].keys())==4
+    assert len(output_json['data'][0]['corporate'].keys())==4
 
-#     assert len(output_json['data'][0]['government']['parameters']) == 2
-#     assert len(output_json['data'][0]['corporate']['parameters']) == 2
+    assert len(output_json['data'][0]['government']['parameters']) == 2
+    assert len(output_json['data'][0]['corporate']['parameters']) == 2
 
 
-# def test_segmented_model_cons():
+def test_segmented_model_cons():
 
-#     file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/segmented_model.csv'
-#     output = model.segmented_model(file,msrp,unit_cost,unit_price,win,units,government,cons)
-#     print(type(output))
-#     print(output)       
+    file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/segmented_model.csv'
+    output = model.segmented_model(file,msrp,unit_cost,unit_price,win,units,government,cons)
+    print(type(output))
+    print(output)       
     
-#     assert isinstance(output, str)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==1
-#     assert output_json['error'] is None or output_json['error'] == ''
+    assert output_json['status']==1
+    assert output_json['error'] is None or output_json['error'] == ''
 
-#     assert len(output_json['data'][0])==2
+    assert len(output_json['data'][0])==2
 
-#     assert 'parameters' in output_json['data'][0]['government'].keys()    
-#     assert 'constraint' in output_json['data'][0]['government'].keys()
-#     assert 'margin_threshold' in output_json['data'][0]['government'].keys()
-#     assert 'suggestion' in output_json['data'][0]['government'].keys()
+    assert 'parameters' in output_json['data'][0]['government'].keys()    
+    assert 'constraint' in output_json['data'][0]['government'].keys()
+    assert 'margin_threshold' in output_json['data'][0]['government'].keys()
+    assert 'suggestion' in output_json['data'][0]['government'].keys()
 
-#     assert 'parameters' in output_json['data'][0]['corporate'].keys()    
-#     assert 'constraint' in output_json['data'][0]['corporate'].keys()
-#     assert 'margin_threshold' in output_json['data'][0]['corporate'].keys()
-#     assert 'suggestion' in output_json['data'][0]['corporate'].keys()
+    assert 'parameters' in output_json['data'][0]['corporate'].keys()    
+    assert 'constraint' in output_json['data'][0]['corporate'].keys()
+    assert 'margin_threshold' in output_json['data'][0]['corporate'].keys()
+    assert 'suggestion' in output_json['data'][0]['corporate'].keys()
 
-#     assert 'government' in output_json['data'][0].keys()
-#     assert 'corporate' in output_json['data'][0].keys()
+    assert 'government' in output_json['data'][0].keys()
+    assert 'corporate' in output_json['data'][0].keys()
 
-#     assert len(output_json['data'][0]['government'].keys())==4
-#     assert len(output_json['data'][0]['corporate'].keys())==4
+    assert len(output_json['data'][0]['government'].keys())==4
+    assert len(output_json['data'][0]['corporate'].keys())==4
 
-#     assert len(output_json['data'][0]['government']['parameters'])==2
-#     assert len(output_json['data'][0]['corporate']['parameters'])==2
+    assert len(output_json['data'][0]['government']['parameters'])==2
+    assert len(output_json['data'][0]['corporate']['parameters'])==2
 
-# def test_segmented_model_cons_margin_threshold():
+def test_segmented_model_cons_margin_threshold():
 
-#     file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/segmented_model.csv'
-#     output = model.segmented_model(file,msrp,unit_cost,unit_price,win,units,government,cons,margin_threshold)
-#     print(type(output))
-#     print(output)       
+    file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/segmented_model.csv'
+    output = model.segmented_model(file,msrp,unit_cost,unit_price,win,units,government,cons,margin_threshold)
+    print(type(output))
+    print(output)       
     
-#     assert isinstance(output, str)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==1
-#     assert output_json['error'] is None or output_json['error'] == ''
+    assert output_json['status']==1
+    assert output_json['error'] is None or output_json['error'] == ''
 
-#     assert len(output_json['data'][0])==2
+    assert len(output_json['data'][0])==2
 
-#     assert 'parameters' in output_json['data'][0]['government'].keys()    
-#     assert 'constraint' in output_json['data'][0]['government'].keys()
-#     assert 'margin_threshold' in output_json['data'][0]['government'].keys()
-#     assert 'suggestion' in output_json['data'][0]['government'].keys()
+    assert 'parameters' in output_json['data'][0]['government'].keys()    
+    assert 'constraint' in output_json['data'][0]['government'].keys()
+    assert 'margin_threshold' in output_json['data'][0]['government'].keys()
+    assert 'suggestion' in output_json['data'][0]['government'].keys()
 
-#     assert 'parameters' in output_json['data'][0]['corporate'].keys()    
-#     assert 'constraint' in output_json['data'][0]['corporate'].keys()
-#     assert 'margin_threshold' in output_json['data'][0]['corporate'].keys()
-#     assert 'suggestion' in output_json['data'][0]['corporate'].keys()
+    assert 'parameters' in output_json['data'][0]['corporate'].keys()    
+    assert 'constraint' in output_json['data'][0]['corporate'].keys()
+    assert 'margin_threshold' in output_json['data'][0]['corporate'].keys()
+    assert 'suggestion' in output_json['data'][0]['corporate'].keys()
 
-#     assert 'government' in output_json['data'][0].keys()
-#     assert 'corporate' in output_json['data'][0].keys()
+    assert 'government' in output_json['data'][0].keys()
+    assert 'corporate' in output_json['data'][0].keys()
 
-#     assert len(output_json['data'][0]['government'].keys())==4
-#     assert len(output_json['data'][0]['corporate'].keys())==4
+    assert len(output_json['data'][0]['government'].keys())==4
+    assert len(output_json['data'][0]['corporate'].keys())==4
 
-#     assert len(output_json['data'][0]['government']['parameters'])==2
-#     assert len(output_json['data'][0]['corporate']['parameters'])==2
+    assert len(output_json['data'][0]['government']['parameters'])==2
+    assert len(output_json['data'][0]['corporate']['parameters'])==2
 
 
 
-# def test_size_model():
+def test_size_model():
 
-#     file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/size_model.csv'
-#     output = model.size_model(file,msrp,unit_cost,unit_price,win,units,government)
-#     print(type(output))
-#     print(output)       
+    file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/size_model.csv'
+    output = model.size_model(file,msrp,unit_cost,unit_price,win,units,government)
+    print(type(output))
+    print(output)       
     
-#     assert isinstance(output, str)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==1
-#     assert output_json['error'] is None or output_json['error'] == ''
+    assert output_json['status']==1
+    assert output_json['error'] is None or output_json['error'] == ''
 
-#     assert len(output_json['data'][0])==2
+    assert len(output_json['data'][0])==2
 
-#     assert 'parameters' in output_json['data'][0]['government'].keys()    
-#     assert 'constraint' in output_json['data'][0]['government'].keys()
-#     assert 'margin_threshold' in output_json['data'][0]['government'].keys()
-#     assert 'suggestion' in output_json['data'][0]['government'].keys()
+    assert 'parameters' in output_json['data'][0]['government'].keys()    
+    assert 'constraint' in output_json['data'][0]['government'].keys()
+    assert 'margin_threshold' in output_json['data'][0]['government'].keys()
+    assert 'suggestion' in output_json['data'][0]['government'].keys()
 
-#     assert 'parameters' in output_json['data'][0]['corporate'].keys()    
-#     assert 'constraint' in output_json['data'][0]['corporate'].keys()
-#     assert 'margin_threshold' in output_json['data'][0]['corporate'].keys()
-#     assert 'suggestion' in output_json['data'][0]['corporate'].keys()
-
-
-#     assert 'government' in output_json['data'][0].keys()
-#     assert 'corporate' in output_json['data'][0].keys()
-
-#     assert len(output_json['data'][0]['government'].keys())==4
-#     assert len(output_json['data'][0]['corporate'].keys())==4
-
-#     assert len(output_json['data'][0]['government']['parameters'])==3
-#     assert len(output_json['data'][0]['corporate']['parameters'])==3
+    assert 'parameters' in output_json['data'][0]['corporate'].keys()    
+    assert 'constraint' in output_json['data'][0]['corporate'].keys()
+    assert 'margin_threshold' in output_json['data'][0]['corporate'].keys()
+    assert 'suggestion' in output_json['data'][0]['corporate'].keys()
 
 
-# def test_size_model_cons():
+    assert 'government' in output_json['data'][0].keys()
+    assert 'corporate' in output_json['data'][0].keys()
 
-#     file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/size_model.csv'
-#     output = model.size_model(file,msrp,unit_cost,unit_price,win,units,government,cons)
-#     print(type(output))
-#     print(output)       
+    assert len(output_json['data'][0]['government'].keys())==4
+    assert len(output_json['data'][0]['corporate'].keys())==4
+
+    assert len(output_json['data'][0]['government']['parameters'])==3
+    assert len(output_json['data'][0]['corporate']['parameters'])==3
+
+
+def test_size_model_cons():
+
+    file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/size_model.csv'
+    output = model.size_model(file,msrp,unit_cost,unit_price,win,units,government,cons)
+    print(type(output))
+    print(output)       
     
-#     assert isinstance(output, str)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==1
-#     assert output_json['error'] is None or output_json['error'] == ''
+    assert output_json['status']==1
+    assert output_json['error'] is None or output_json['error'] == ''
 
-#     assert len(output_json['data'][0])==2
+    assert len(output_json['data'][0])==2
     
-#     assert 'parameters' in output_json['data'][0]['government'].keys()    
-#     assert 'constraint' in output_json['data'][0]['government'].keys()
-#     assert 'margin_threshold' in output_json['data'][0]['government'].keys()
-#     assert 'suggestion' in output_json['data'][0]['government'].keys()
+    assert 'parameters' in output_json['data'][0]['government'].keys()    
+    assert 'constraint' in output_json['data'][0]['government'].keys()
+    assert 'margin_threshold' in output_json['data'][0]['government'].keys()
+    assert 'suggestion' in output_json['data'][0]['government'].keys()
 
-#     assert 'parameters' in output_json['data'][0]['corporate'].keys()    
-#     assert 'constraint' in output_json['data'][0]['corporate'].keys()
-#     assert 'margin_threshold' in output_json['data'][0]['corporate'].keys()
-#     assert 'suggestion' in output_json['data'][0]['corporate'].keys()
-
-
-#     assert 'government' in output_json['data'][0].keys()
-#     assert 'corporate' in output_json['data'][0].keys()
-
-#     assert len(output_json['data'][0]['government'].keys())==4
-#     assert len(output_json['data'][0]['corporate'].keys())==4
-
-#     assert len(output_json['data'][0]['government']['parameters'])==3
-#     assert len(output_json['data'][0]['corporate']['parameters'])==3
+    assert 'parameters' in output_json['data'][0]['corporate'].keys()    
+    assert 'constraint' in output_json['data'][0]['corporate'].keys()
+    assert 'margin_threshold' in output_json['data'][0]['corporate'].keys()
+    assert 'suggestion' in output_json['data'][0]['corporate'].keys()
 
 
-# def test_size_model_cons_margin_threshold():
+    assert 'government' in output_json['data'][0].keys()
+    assert 'corporate' in output_json['data'][0].keys()
 
-#     file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/size_model.csv'
-#     output = model.size_model(file,msrp,unit_cost,unit_price,win,units,government,cons,margin_threshold)
-#     print(type(output))
-#     print(output)       
+    assert len(output_json['data'][0]['government'].keys())==4
+    assert len(output_json['data'][0]['corporate'].keys())==4
+
+    assert len(output_json['data'][0]['government']['parameters'])==3
+    assert len(output_json['data'][0]['corporate']['parameters'])==3
+
+
+def test_size_model_cons_margin_threshold():
+
+    file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/size_model.csv'
+    output = model.size_model(file,msrp,unit_cost,unit_price,win,units,government,cons,margin_threshold)
+    print(type(output))
+    print(output)       
     
-#     assert isinstance(output, str)
+    assert isinstance(output, str)
 
-#     output_json = json.loads(output)
-#     assert isinstance(output_json, dict)
+    output_json = json.loads(output)
+    assert isinstance(output_json, dict)
 
-#     assert output_json['status']==1
-#     assert output_json['error'] is None or output_json['error'] == ''
+    assert output_json['status']==1
+    assert output_json['error'] is None or output_json['error'] == ''
 
-#     assert len(output_json['data'][0])==2
+    assert len(output_json['data'][0])==2
     
-#     assert 'parameters' in output_json['data'][0]['government'].keys()    
-#     assert 'constraint' in output_json['data'][0]['government'].keys()
-#     assert 'margin_threshold' in output_json['data'][0]['government'].keys()
-#     assert 'suggestion' in output_json['data'][0]['government'].keys()
+    assert 'parameters' in output_json['data'][0]['government'].keys()    
+    assert 'constraint' in output_json['data'][0]['government'].keys()
+    assert 'margin_threshold' in output_json['data'][0]['government'].keys()
+    assert 'suggestion' in output_json['data'][0]['government'].keys()
 
-#     assert 'parameters' in output_json['data'][0]['corporate'].keys()    
-#     assert 'constraint' in output_json['data'][0]['corporate'].keys()
-#     assert 'margin_threshold' in output_json['data'][0]['corporate'].keys()
-#     assert 'suggestion' in output_json['data'][0]['corporate'].keys()
-
-
-#     assert 'government' in output_json['data'][0].keys()
-#     assert 'corporate' in output_json['data'][0].keys()
-
-#     assert len(output_json['data'][0]['government'].keys())==4
-#     assert len(output_json['data'][0]['corporate'].keys())==4
-
-#     assert len(output_json['data'][0]['government']['parameters'])==3
-#     assert len(output_json['data'][0]['corporate']['parameters'])==3
+    assert 'parameters' in output_json['data'][0]['corporate'].keys()    
+    assert 'constraint' in output_json['data'][0]['corporate'].keys()
+    assert 'margin_threshold' in output_json['data'][0]['corporate'].keys()
+    assert 'suggestion' in output_json['data'][0]['corporate'].keys()
 
 
+    assert 'government' in output_json['data'][0].keys()
+    assert 'corporate' in output_json['data'][0].keys()
 
-# sad path
+    assert len(output_json['data'][0]['government'].keys())==4
+    assert len(output_json['data'][0]['corporate'].keys())==4
+
+    assert len(output_json['data'][0]['government']['parameters'])==3
+    assert len(output_json['data'][0]['corporate']['parameters'])==3
+
+
+
+# # sad path
 
 # def test_file():
 
@@ -600,34 +600,34 @@ model = Model(env)
 #     assert output_json['status']==0
 #     assert output_json['error'] is not None or output_json['error'] != ''
 
-def test_margin_threshold():
+# def test_margin_threshold():
 
-    output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,cons,'123')
-    assert isinstance(output, str)
+#     output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,cons,'123')
+#     assert isinstance(output, str)
 
-    output_json = json.loads(output)    
-    assert isinstance(output_json, dict)
+#     output_json = json.loads(output)    
+#     assert isinstance(output_json, dict)
 
-    assert output_json['status']==1
-    assert output_json['error'] is None or output_json['error'] == ''
+#     assert output_json['status']==1
+#     assert output_json['error'] is None or output_json['error'] == ''
 
-    output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,cons,['123'])
-    assert isinstance(output, str)
+#     output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,cons,['123'])
+#     assert isinstance(output, str)
 
-    output_json = json.loads(output)    
-    assert isinstance(output_json, dict)
+#     output_json = json.loads(output)    
+#     assert isinstance(output_json, dict)
 
-    assert output_json['status']==0
-    assert output_json['error'] is not None or output_json['error'] != ''
+#     assert output_json['status']==0
+#     assert output_json['error'] is not None or output_json['error'] != ''
 
 
-    output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,cons,'abc')
-    assert isinstance(output, str)
+#     output = model.segmented_model('segmented_model.csv',msrp,unit_cost,unit_price,win,units,government,cons,'abc')
+#     assert isinstance(output, str)
 
-    output_json = json.loads(output)    
-    assert isinstance(output_json, dict)
+#     output_json = json.loads(output)    
+#     assert isinstance(output_json, dict)
 
-    assert output_json['status']==0
-    assert output_json['error'] is not None or output_json['error'] != ''
+#     assert output_json['status']==0
+#     assert output_json['error'] is not None or output_json['error'] != ''
     
 

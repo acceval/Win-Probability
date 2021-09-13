@@ -488,8 +488,6 @@ class Model:
 		return return_json
 
 
-
-
 	def price_model(self,file,msrp,unit_cost,unit_price,win,units,cons=None,margin_threshold=None):
 
 		msg = self.__class__.__name__+'.'+utils.get_function_caller()
@@ -673,7 +671,7 @@ class Model:
 
 			return 0, msg
 
-		elif unit_cost not in cols and cols is not None:
+		if unit_cost not in cols and cols is not None:
 
 			msg = unit_cost+' does not exist.'
 			self.log.print_(msg)
@@ -681,7 +679,7 @@ class Model:
 
 			return 0, msg
 
-		elif unit_price not in cols and cols is not None:
+		if unit_price not in cols and cols is not None:
 
 			msg = unit_price+' does not exist.'
 			self.log.print_(msg)
@@ -689,7 +687,7 @@ class Model:
 
 			return 0, msg
 
-		elif win not in cols and cols is not None:
+		if win not in cols and cols is not None:
 
 			msg = win+' does not exist.'
 			self.log.print_(msg)
@@ -697,7 +695,7 @@ class Model:
 
 			return 0, msg
 
-		elif units not in cols and cols is not None:
+		if units not in cols and cols is not None:
 
 			msg = units+' does not exist.'
 			self.log.print_(msg)
@@ -705,7 +703,7 @@ class Model:
 
 			return 0, msg
 
-		elif government is not None and government not in cols and cols is not None:
+		if government is not None and government not in cols and cols is not None:
 
 			msg = government+' does not exist.'
 			self.log.print_(msg)
@@ -713,7 +711,24 @@ class Model:
 
 			return 0, msg
 
-		elif cons is not None:
+		if margin_threshold is not None and cons is None:
+
+			msg = 'Constraint is needed.'
+			self.log.print_(msg)
+			print(msg)				
+
+			return 0, msg
+
+		if margin_threshold is not None and not (isinstance(margin_threshold,str) or isinstance(margin_threshold,int) or isinstance(margin_threshold,float)):
+
+			msg = str(margin_threshold)+' is invalid.'
+			self.log.print_(msg)
+			print(msg)				
+
+			return 0, msg
+
+		if cons is not None and margin_threshold is not None:
+
 
 			if not isinstance(cons,str):
 
@@ -723,7 +738,6 @@ class Model:
 
 				return 0, msg
 
-
 			if len(cons.split(' '))!=3:
 
 				msg = cons+' is invalid.'
@@ -732,39 +746,22 @@ class Model:
 
 				return 0, msg
 
-			elif cons.split(' ')[1]!='prob' and cons.split(' ')[1] not in ['<','<=','>=','>'] and (not utils.is_float(cons.split(' ')[2]) or not utils.is_int(cons.split(' ')[2])) :
+			if not (cons.split(' ')[0]=='prob' and cons.split(' ')[1] in ['<','<=','>=','>'] and (utils.is_float(cons.split(' ')[2]) or utils.is_int(cons.split(' ')[2]))) :
 
-				msg = cons+' is invalid.'
+				msg = str(cons)+' is invalid.'
 				self.log.print_(msg)
 				print(msg)				
 
 				return 0, msg
 
 
-			elif not(margin_threshold is not None and (not isinstance(margin_threshold,str) or not isinstance(margin_threshold,int) or not isinstance(margin_threshold,float))):
+			# elif not(margin_threshold is not None and (not isinstance(margin_threshold,str) or not isinstance(margin_threshold,int) or not isinstance(margin_threshold,float))):
 
-				msg = 'Margin Threshold must be a numeric.'
-				self.log.print_(msg)
-				print(msg)				
+			# 	msg = 'Margin Threshold must be a numeric.'
+			# 	self.log.print_(msg)
+			# 	print(msg)				
 				
-				return 0, msg
-
-
-		elif margin_threshold is not None and cons is None:
-
-			msg = 'Margin Threshold is needed.'
-			self.log.print_(msg)
-			print(msg)				
-
-			return 0, msg
-
-		elif not isinstance(margin_threshold,str) or not isinstance(margin_threshold,int) or not isinstance(margin_threshold,float):
-
-			msg = margin_threshold+' is invalid.'
-			self.log.print_(msg)
-			print(msg)				
-
-			return 0, msg
+			# 	return 0, msg
 
 		else:
 

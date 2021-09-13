@@ -17,6 +17,9 @@ unit_price = 'Unit_Price'
 win = 'Win'
 units = 'Units'
 government = 'Government'
+cons = 'prob > 0.8'
+margin_threshold = 50
+
 
 # local url
 url = config.LOCAL_URL
@@ -40,7 +43,7 @@ def test_segmented_model(app, client):
     
     function = 'segmented_model' 
     url_ = url+function 
-    data = '{"file" :"'+str(file)+'", "msrp":"'+str(msrp)+'", "unitcost":"'+str(unit_cost)+'", "unitprice":"'+str(unit_price)+'", "win":"'+str(win)+'", "units":"'+units+'", "government":"'+str(government)+'"}'
+    data = '{"file" :"'+str(file)+'", "msrp":"'+str(msrp)+'", "unitcost":"'+str(unit_cost)+'", "unitprice":"'+str(unit_price)+'", "win":"'+str(win)+'", "units":"'+units+'", "government":"'+str(government)+'","cons":"'+str(cons)+'","margin_threshold":"'+str(margin_threshold)+'"}'
     data = data.replace("'",'"')
 
     send_request = client.post(url_, data=data, follow_redirects=True)    
@@ -53,7 +56,7 @@ def test_size_model(app, client):
     
     function = 'size_model' 
     url_ = url+function 
-    data = '{"file" :"'+str(file)+'", "msrp":"'+str(msrp)+'", "unitcost":"'+str(unit_cost)+'", "unitprice":"'+str(unit_price)+'", "win":"'+str(win)+'", "units":"'+units+'", "government":"'+str(government)+'"}'
+    data = '{"file" :"'+str(file)+'", "msrp":"'+str(msrp)+'", "unitcost":"'+str(unit_cost)+'", "unitprice":"'+str(unit_price)+'", "win":"'+str(win)+'", "units":"'+units+'", "government":"'+str(government)+'","cons":"'+str(cons)+'","margin_threshold":"'+str(margin_threshold)+'"}'
     data = data.replace("'",'"')
 
     send_request = client.post(url_, data=data, follow_redirects=True)    
