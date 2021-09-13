@@ -72,7 +72,6 @@ def test_price_model_cons():
     assert len(output_json['data'][0]['parameters'].keys()) == 2
     assert len(output_json['data'][0]['suggestion'].keys()) == 4
 
-this one is stuck
 def test_price_model_cons_margin_threshold():
 
     output = model.price_model(file,msrp,unit_cost,unit_price,win,units,cons,margin_threshold)
