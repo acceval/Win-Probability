@@ -13,7 +13,7 @@ https://win-probability.herokuapp.com/price_model
 ### Parameters
 
 ```
-{"file" :"https://raw.githubusercontent.com/acceval/Win-Probability/main/fleet_sales.csv", "msrp":"MSRP", "unitcost":"Unit_Cost", "unitprice":"Unit_Price", "win":"Win", "units":"Units"}
+{"file" :"https://raw.githubusercontent.com/acceval/Win-Probability/main/fleet_sales.csv", "msrp":"MSRP", "unitcost":"Unit_Cost", "unitprice":"Unit_Price", "win":"Win", "units":"Units", "cons":"prob > 0.8", "margin_threshold":"50"}
 ```
 
 Input:
@@ -23,17 +23,19 @@ Input:
 4. unitprice : unitprice column name in the file. The name can't contain space.
 5. win : win column name in the file. The name can't contain space.
 6. units : units column name in the file. The name can't contain space.
+7. cons : [optional] constraint of the output. The format is like this: "prob [<,<=,>,>=] [number]". At this time, the only accepted variable is "prob".
+8. margin_threshold : [optional] the tolerable deducted margin threshold to be used along with the constraint. 
 
 ### How To Call
 
 ```
-curl -X POST -H 'Accept: application/json' -H 'Accept-Encoding: gzip, deflate' -H 'Connection: keep-alive' -H 'Content-Length: 185' -H 'Content-type: application/json' -H 'User-Agent: python-requests/2.26.0' -d '{"file" :"https://raw.githubusercontent.com/acceval/Win-Probability/main/fleet_sales.csv", "msrp":"MSRP", "unitcost":"Unit_Cost", "unitprice":"Unit_Price", "win":"Win", "units":"Units"}' https://win-probability.herokuapp.com/price_model
+curl -X POST -H 'Accept: application/json' -H 'Accept-Encoding: gzip, deflate' -H 'Connection: keep-alive' -H 'Content-Length: 231' -H 'Content-type: application/json' -H 'User-Agent: python-requests/2.26.0' -d '{"file" :"https://raw.githubusercontent.com/acceval/Win-Probability/main/fleet_sales.csv", "msrp":"MSRP", "unitcost":"Unit_Cost", "unitprice":"Unit_Price", "win":"Win", "units":"Units", "cons":"prob > 0.8", "margin_threshold":"50"}' https://win-probability.herokuapp.com/price_model
 ```
 
 ### Sample Output
 
 ```
-{"status": 1, "error": null, "data": [{"parameters": {"intercept": -7.756274057361606, "price": 9.164204466877205}, "suggestion": {"optimal_price_ratio": 0.8300000000000003, "actual_price": 20750.000000000007, "probability": 0.5374259547306021, "margin": 3090.199239700966}}]}
+{"status": 1, "error": null, "data": [{"parameters": {"intercept": -7.756274057361606, "price": 9.164204466877205}, "constraint": null, "margin_threshold": null, "suggestion": {"optimal_price_ratio": 0.8300000000000003, "actual_price": 20750.000000000007, "probability": 0.5374259547306021, "margin": 3090.199239700966}}]}
 ```
 
 ## Segmented Model
@@ -47,7 +49,7 @@ https://win-probability.herokuapp.com/segmented_model
 ### Parameters
 
 ```
-{"file" :"https://raw.githubusercontent.com/acceval/Win-Probability/main/segmented_model.csv", "msrp":"MSRP", "unitcost":"Unit_Cost", "unitprice":"Unit_Price", "win":"Win", "units":"Units", "government":"Government"}
+{"file" :"https://raw.githubusercontent.com/acceval/Win-Probability/main/segmented_model.csv", "msrp":"MSRP", "unitcost":"Unit_Cost", "unitprice":"Unit_Price", "win":"Win", "units":"Units", "government":"Government", "cons":"prob > 0.8", "margin_threshold":"50"}
 ```
 
 Input:
@@ -58,11 +60,14 @@ Input:
 5. win : win column name in the file. The name can't contain space.
 6. units : units column name in the file. The name can't contain space.
 7. government : government column name in the file. The name can't contain space. A flag indicatin that the transaction row belong to government. 1 for government transaction, 0 for corporate transaction.
+8. cons : [optional] constraint of the output. The format is like this: "prob [<,<=,>,>=] [number]". At this time, the only accepted variable is "prob".
+9. margin_threshold : [optional] the tolerable deducted margin threshold to be used along with the constraint. 
+
 
 ### How To Call
 
 ```
-curl -X POST -H 'Accept: application/json' -H 'Accept-Encoding: gzip, deflate' -H 'Connection: keep-alive' -H 'Content-Length: 216' -H 'Content-type: application/json' -H 'User-Agent: python-requests/2.26.0' -d '{"file" :"https://raw.githubusercontent.com/acceval/Win-Probability/main/segmented_model.csv", "msrp":"MSRP", "unitcost":"Unit_Cost", "unitprice":"Unit_Price", "win":"Win", "units":"Units", "government":"Government"}' https://win-probability.herokuapp.com/segmented_model
+curl -X POST -H 'Accept: application/json' -H 'Accept-Encoding: gzip, deflate' -H 'Connection: keep-alive' -H 'Content-Length: 262' -H 'Content-type: application/json' -H 'User-Agent: python-requests/2.26.0' -d '{"file" :"https://raw.githubusercontent.com/acceval/Win-Probability/main/segmented_model.csv", "msrp":"MSRP", "unitcost":"Unit_Cost", "unitprice":"Unit_Price", "win":"Win", "units":"Units", "government":"Government", "cons":"prob > 0.8", "margin_threshold":"50"}' https://win-probability.herokuapp.com/segmented_model
 ````
 
 ### Sample Output
@@ -82,7 +87,7 @@ https://win-probability.herokuapp.com/size_model
 ### Parameters
 
 ```
-{"file" :"https://raw.githubusercontent.com/acceval/Win-Probability/main/size_model.csv", "msrp":"MSRP", "unitcost":"Unit_Cost", "unitprice":"Unit_Price", "win":"Win", "units":"Units", "government":"Government"}
+{"file" :"https://raw.githubusercontent.com/acceval/Win-Probability/main/size_model.csv", "msrp":"MSRP", "unitcost":"Unit_Cost", "unitprice":"Unit_Price", "win":"Win", "units":"Units", "government":"Government", "cons":"prob > 0.8", "margin_threshold":"50"}
 ```
 
 Input:
@@ -93,6 +98,8 @@ Input:
 5. win : win column name in the file. The name can't contain space.
 6. units : units column name in the file. The name can't contain space.
 7. government : government column name in the file. The name can't contain space. A flag indicatin that the transaction row belong to government. 1 for government transaction, 0 for corporate transaction.
+8. cons : [optional] constraint of the output. The format is like this: "prob [<,<=,>,>=] [number]". At this time, the only accepted variable is "prob".
+9. margin_threshold : [optional] the tolerable deducted margin threshold to be used along with the constraint. 
 
 ### How To Call
 
