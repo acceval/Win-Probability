@@ -35,7 +35,7 @@ curl -X POST -H 'Accept: application/json' -H 'Accept-Encoding: gzip, deflate' -
 ### Sample Output
 
 ```
-{"status": 1, "error": null, "data": [{"parameters": {"intercept": -7.756274057361606, "price": 9.164204466877205}, "constraint": null, "margin_threshold": null, "suggestion": {"optimal_price_ratio": 0.8300000000000003, "actual_price": 20750.000000000007, "probability": 0.5374259547306021, "margin": 3090.199239700966}}]}
+{"status": 1, "error": null, "data": [{"parameters": {"intercept": -7.756270649447668, "price": 9.164200156150054}, "constraint": "prob > 0.8", "margin_threshold": 50.0, "suggestion": {"optimal_price_ratio": 0.6900000000000002, "actual_price": 17250.000000000004, "probability": 0.8073640497111536, "margin": 1816.5691118500986}}]}
 ```
 
 ## Segmented Model
@@ -73,7 +73,7 @@ curl -X POST -H 'Accept: application/json' -H 'Accept-Encoding: gzip, deflate' -
 ### Sample Output
 
 ```
-{"status": 1, "error": null, "data": [{"government": {"parameters": {"intercept": -14.218724594791366, "price": 20.001700874328492}, "suggestion": {"optimal_price_ratio": 0.7100000000000002, "actual_price": 17750.000000000004, "probability": 0.5043791315291146, "margin": 1387.042611705067}}, "corporate": {"parameters": {"intercept": -25.97034068132109, "price": 26.640062449882997}, "suggestion": {"optimal_price_ratio": 0.9000000000000004, "actual_price": 22500.000000000007, "probability": 0.8801956773814624, "margin": 6601.467580360974}}}]}
+{"status": 1, "error": null, "data": [{"government": {"parameters": {"intercept": -14.218728794802145, "price": 20.001706624867932}, "constraint": "prob > 0.8", "margin_threshold": 50.0, "suggestion": {"optimal_price_ratio": 0.6400000000000001, "actual_price": 16000.000000000004, "probability": 0.8049676353761264, "margin": 804.9676353761294}}, "corporate": {"parameters": {"intercept": -25.97032640274357, "price": 26.640045506707242}, "constraint": "prob > 0.8", "margin_threshold": 50.0, "suggestion": {"optimal_price_ratio": 0.8900000000000003, "actual_price": 22250.000000000007, "probability": 0.9055683018147103, "margin": 6565.370188156656}}}]}
 ```
 
 ## Size Model
@@ -104,12 +104,12 @@ Input:
 ### How To Call
 
 ```
-curl -X POST -H 'Accept: application/json' -H 'Accept-Encoding: gzip, deflate' -H 'Connection: keep-alive' -H 'Content-Length: 211' -H 'Content-type: application/json' -H 'User-Agent: python-requests/2.26.0' -d '{"file" :"https://raw.githubusercontent.com/acceval/Win-Probability/main/size_model.csv", "msrp":"MSRP", "unitcost":"Unit_Cost", "unitprice":"Unit_Price", "win":"Win", "units":"Units", "government":"Government"}' https://win-probability.herokuapp.com/size_model
+curl -X POST -H 'Accept: application/json' -H 'Accept-Encoding: gzip, deflate' -H 'Connection: keep-alive' -H 'Content-Length: 257' -H 'Content-type: application/json' -H 'User-Agent: python-requests/2.26.0' -d '{"file" :"https://raw.githubusercontent.com/acceval/Win-Probability/main/size_model.csv", "msrp":"MSRP", "unitcost":"Unit_Cost", "unitprice":"Unit_Price", "win":"Win", "units":"Units", "government":"Government", "cons":"prob > 0.8", "margin_threshold":"50"}' https://win-probability.herokuapp.com/size_model
 ```
 
 ### Sample Output
 
 ```
-{"status": 1, "error": null, "data": [{"government": {"parameters": {"intercept": -15.072509234946159, "price": 20.27781282625948, "size": 0.033369155500851864}, "suggestion": {"optimal_price_ratio": 0.7200000000000002, "actual_price": 18000.000000000004, "probability": 0.6159715171247364, "margin": 1847.9145513742114}}, "corporate": {"parameters": {"intercept": -25.903769192432303, "price": 26.612452435024107, "size": -0.002289412025967165}, "suggestion": {"optimal_price_ratio": 0.9000000000000004, "actual_price": 22500.000000000007, "probability": 0.875725733319258, "margin": 6567.942999894441}}}]}
+{"status": 1, "error": null, "data": [{"government": {"parameters": {"intercept": -15.072509222936542, "price": 20.277812849157183, "size": 0.03336915656538306}, "constraint": "prob > 0.8", "margin_threshold": 50.0, "suggestion": {"optimal_price_ratio": 0.6600000000000001, "actual_price": 16500.000000000004, "probability": 0.8441127047733161, "margin": 1266.1690571599772}}, "corporate": {"parameters": {"intercept": -25.903732236930107, "price": 26.612409769478223, "size": -0.002289422824377025}, "constraint": "prob > 0.8", "margin_threshold": 50.0, "suggestion": {"optimal_price_ratio": 0.8900000000000003, "actual_price": 22250.000000000007, "probability": 0.9019151513789001, "margin": 6538.884847497033}}}]}
 ```
 
