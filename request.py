@@ -41,11 +41,13 @@ if __name__ == '__main__':
 	win = 'Win'
 	units = 'Units'
 	government = 'Government'
+	cons = 'prob > 0.8'
+	margin_threshold = '50'
 
 	function = 'price_model' 
 	url_ = url+function 
 
-	data = '{"file" :"'+str(file)+'", "msrp":"'+str(msrp)+'", "unitcost":"'+str(unit_cost)+'", "unitprice":"'+str(unit_price)+'", "win":"'+str(win)+'", "units":"'+units+'"}'
+	data = '{"file" :"'+str(file)+'", "msrp":"'+str(msrp)+'", "unitcost":"'+str(unit_cost)+'", "unitprice":"'+str(unit_price)+'", "win":"'+str(win)+'", "units":"'+units+'", "cons":"'+cons+'", "margin_threshold":"'+margin_threshold+'"}'
 	data = data.replace("'",'"')
 	data_json = json.loads(data)
 
@@ -70,7 +72,7 @@ if __name__ == '__main__':
 	function = 'segmented_model' 
 	url_ = url+function 
 
-	data = '{"file" :"'+str(file)+'", "msrp":"'+str(msrp)+'", "unitcost":"'+str(unit_cost)+'", "unitprice":"'+str(unit_price)+'", "win":"'+str(win)+'", "units":"'+units+'", "government":"'+str(government)+'"}'
+	data = '{"file" :"'+str(file)+'", "msrp":"'+str(msrp)+'", "unitcost":"'+str(unit_cost)+'", "unitprice":"'+str(unit_price)+'", "win":"'+str(win)+'", "units":"'+units+'", "government":"'+str(government)+'", "cons":"'+cons+'", "margin_threshold":"'+margin_threshold+'"}'
 	data = data.replace("'",'"')
 	data_json = json.loads(data)
 
@@ -94,7 +96,7 @@ if __name__ == '__main__':
 	function = 'size_model' 
 	url_ = url+function 
 
-	data = '{"file" :"'+str(file)+'", "msrp":"'+str(msrp)+'", "unitcost":"'+str(unit_cost)+'", "unitprice":"'+str(unit_price)+'", "win":"'+str(win)+'", "units":"'+units+'", "government":"'+str(government)+'"}'
+	data = '{"file" :"'+str(file)+'", "msrp":"'+str(msrp)+'", "unitcost":"'+str(unit_cost)+'", "unitprice":"'+str(unit_price)+'", "win":"'+str(win)+'", "units":"'+units+'", "government":"'+str(government)+'", "cons":"'+cons+'", "margin_threshold":"'+margin_threshold+'"}'
 	data = data.replace("'",'"')
 	data_json = json.loads(data)
 

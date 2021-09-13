@@ -536,8 +536,12 @@ class Model:
 
 						dataframe = self.data_cleaning(dataframe)						
 					
+						print(dataframe)
+
 						if margin_threshold is not None:
 							margin_threshold = float(margin_threshold)
+
+						print('margin_threshold:',margin_threshold)
 
 					except Exception as e:
 

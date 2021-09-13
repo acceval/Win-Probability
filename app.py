@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request
 from flask_restful import Api, Resource, reqparse
 import json
 
-from Model import Model
+from Model import Model 
 
 
 model = Model('local')
@@ -17,14 +17,14 @@ parser.add_argument('list', type=list)
 
 @app.route('/')
 def hello():
-
+	
 	return jsonify('Welcome to Win Probability')
 
 @app.route('/size_model', methods=['POST'])
 def size_model():
 
 	ABC = parser.parse_args()
-	data_decoded = request.data.decode("utf-8")
+	data_decoded = request.data.decode("utf-8") 
 
 	#convert to json
 	data_json = json.loads(data_decoded)
@@ -40,7 +40,7 @@ def size_model():
 		msrp = data_json['msrp']
 	else:
 		msrp = ''
-
+	
 	if 'unitcost' in  data_json:
 		unitcost = data_json['unitcost']
 	else:
@@ -66,16 +66,26 @@ def size_model():
 	else:
 		government = ''
 
+	if 'cons' in  data_json:
+		cons = data_json['cons']
+	else:
+		cons = None
+
+	if 'margin_threshold' in  data_json:
+		margin_threshold = data_json['margin_threshold']
+	else:
+		margin_threshold = None
+
 
 	if file!='' and msrp!='' and unitcost!='' and unitprice!='' and win!='' and units!='' and government!='':
 
-		output = model.size_model(file,msrp,unitcost,unitprice,win,units,government)
-
+		output = model.size_model(file,msrp,unitcost,unitprice,win,units,government,cons,margin_threshold)
+		
 		return jsonify(output)
 
 	else:
 
-		status = 0
+		status = 0 
 		error = 'There is a problem on the parameters'
 		data = None
 
@@ -91,7 +101,7 @@ def size_model():
 def segmented_model():
 
 	ABC = parser.parse_args()
-	data_decoded = request.data.decode("utf-8")
+	data_decoded = request.data.decode("utf-8") 
 
 	#convert to json
 	data_json = json.loads(data_decoded)
@@ -107,7 +117,7 @@ def segmented_model():
 		msrp = data_json['msrp']
 	else:
 		msrp = ''
-
+	
 	if 'unitcost' in  data_json:
 		unitcost = data_json['unitcost']
 	else:
@@ -133,16 +143,27 @@ def segmented_model():
 	else:
 		government = ''
 
+	if 'cons' in  data_json:
+		cons = data_json['cons']
+	else:
+		cons = None
+
+	if 'margin_threshold' in  data_json:
+		margin_threshold = data_json['margin_threshold']
+	else:
+		margin_threshold = None
+
+
 
 	if file!='' and msrp!='' and unitcost!='' and unitprice!='' and win!='' and units!='' and government!='':
 
-		output = model.segmented_model(file,msrp,unitcost,unitprice,win,units,government)
-
+		output = model.segmented_model(file,msrp,unitcost,unitprice,win,units,government,cons,margin_threshold)
+		
 		return jsonify(output)
 
 	else:
 
-		status = 0
+		status = 0 
 		error = 'There is a problem on the parameters'
 		data = None
 
@@ -158,7 +179,7 @@ def segmented_model():
 def choice_model():
 
 	ABC = parser.parse_args()
-	data_decoded = request.data.decode("utf-8")
+	data_decoded = request.data.decode("utf-8") 
 
 	#convert to json
 	data_json = json.loads(data_decoded)
@@ -177,7 +198,7 @@ def choice_model():
 		msrp = data_json['msrp']
 	else:
 		msrp = ''
-
+	
 	if 'unitcost' in  data_json:
 		unitcost = data_json['unitcost']
 	else:
@@ -198,16 +219,27 @@ def choice_model():
 	else:
 		units = ''
 
+	if 'cons' in  data_json:
+		cons = data_json['cons']
+	else:
+		cons = None
+
+	if 'margin_threshold' in  data_json:
+		margin_threshold = data_json['margin_threshold']
+	else:
+		margin_threshold = None
+
+
 
 	if file!='' and msrp!='' and unitcost!='' and unitprice!='' and win!='' and units!='':
 
-		output = model.price_model(file,msrp,unitcost,unitprice,win,units)
-
+		output = model.price_model(file,msrp,unitcost,unitprice,win,units,cons,margin_threshold)
+		
 		return jsonify(output)
 
 	else:
 
-		status = 0
+		status = 0 
 		error = 'There is a problem on the parameters'
 		data = None
 
@@ -222,7 +254,8 @@ def choice_model():
 
 if __name__ == '__main__':
 	port = int(os.environ.get("PORT", 5050))
-	app.run(host='0.0.0.0', port = port, debug=True)
+	#app.run(host='0.0.0.0', port = port, debug=True)
 
 	# local
-	# app.run(host='127.0.0.1', port = port, debug=True)
+	app.run(host='127.0.0.1', port = port, debug=True)
+	
