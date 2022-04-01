@@ -2,6 +2,8 @@
 
 # Win-Probability
 
+All the models in this repo is mimicking the simulation model in https://github.com/acceval/pricing-algo/tree/main/Win%20Probability 
+
 ## Price Model
 
 ### Resource URL
@@ -112,4 +114,12 @@ curl -X POST -H 'Accept: application/json' -H 'Accept-Encoding: gzip, deflate' -
 ```
 {"status": 1, "error": null, "data": [{"government": {"parameters": {"intercept": -15.072509222936542, "price": 20.277812849157183, "size": 0.03336915656538306}, "constraint": "prob > 0.8", "margin_threshold": 50.0, "suggestion": {"optimal_price_ratio": 0.6600000000000001, "actual_price": 16500.000000000004, "probability": 0.8441127047733161, "margin": 1266.1690571599772}}, "corporate": {"parameters": {"intercept": -25.903732236930107, "price": 26.612409769478223, "size": -0.002289422824377025}, "constraint": "prob > 0.8", "margin_threshold": 50.0, "suggestion": {"optimal_price_ratio": 0.8900000000000003, "actual_price": 22250.000000000007, "probability": 0.9019151513789001, "margin": 6538.884847497033}}}]}
 ```
+
+### Run Locally
+
+To run this model locally:
+1. Create virtual environment.
+2. Install all the necessary libraries
+3. run `python main/py`
+4. There are 3 test cases provided, uncomment the scenario you want to run and comment the scenario you do not want to run
 
