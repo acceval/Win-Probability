@@ -15,12 +15,12 @@ import numpy as np
 import json
 import string
 
-from Model import Model 
+from Model import Model
 
 
 if __name__== '__main__':
 
-	log = Log()		
+	log = Log()
 
 	msg = __name__+'.'+utils.get_function_caller()
 	log.print_(msg)
@@ -28,102 +28,118 @@ if __name__== '__main__':
 
 	start = utils.get_time()
 	print(start)
-	
+
 	today = None
 
 	# input files
 	# player names
-	# features 
+	# features
 
-
-	parser = argparse.ArgumentParser()	
-	parser.add_argument("--env", "-e", help="State the environment", required=True)	
-	parser.add_argument("--file", "-f", help="Specify path to input files", required=True)	
-	parser.add_argument("--msrp", "-ms", help="Specify the MSRP feature.", required=True)	
-	parser.add_argument("--unitcost", "-uc", help="Specify the unit cost.", required=True)	
-	parser.add_argument("--unitprice", "-up", help="Specify the unit price.", required=True)	
-	parser.add_argument("--win", "-w", help="Specify the win.", required=True)
-	parser.add_argument("--units", "-u", help="Specify the units.", required=True)	
-	parser.add_argument("--model", "-m", help="Specify the model.", required=True)	
-	parser.add_argument("--government", "-g", help="Specify the government.", required=False)	
-	parser.add_argument("--cons", "-c", help="Specify the constraint.", required=False)		
-	parser.add_argument("--margin_threshold", "-t", help="Specify the constraint margin_threshold.", required=False)		
-
-	# parser.add_argument("--size", "-s", help="Specify the size.", required=False)		
-	args = parser.parse_args()
-
-	env = 'local'
-	if args.env is None:
-		print("State the environment!!")
-	else:
-		env = args.env
-	
-	file = None
-	if args.file is None:
-		print("State the input file!!")
-	else:
-		file = args.file
-
-	msrp = None
-	if args.msrp is None:
-		print("State the msrp!!")
-	else:
-		msrp = args.msrp
-
-	unit_cost = None
-	if args.unitcost is None:
-		print("State the unitcost!!")
-	else:
-		unit_cost = args.unitcost
-
-	unit_price = None
-	if args.unitprice is None:
-		print("State the unitprice!!")
-	else:
-		unit_price = args.unitprice
-
-	win = None
-	if args.win is None:
-		print("State the win!!")
-	else:
-		win = args.win
-
-	units = None
-	if args.units is None:
-		print("State the units!!")
-	else:
-		units = args.units
-
-	model = None
-	if args.model is None:
-		print("State the model!!")
-	else:
-		model = args.model
-
-	government = None
-	if args.government is None:
-		print("State the government!!")
-	else:
-		government = args.government
-
-	cons = None
-	if args.cons is None:
-		print("State the constraint!!")
-	else:
-		cons = args.cons
-
-	margin_threshold = None
-	if args.margin_threshold is None:
-		print("State the margin_threshold!!")
-	else:
-		margin_threshold = args.margin_threshold
-	
-
-	# size = None
-	# if args.size is None:
-	# 	print("State the size!!")
+	#
+	# parser = argparse.ArgumentParser()
+	# parser.add_argument("--env", "-e", help="State the environment", required=True)
+	# parser.add_argument("--file", "-f", help="Specify path to input files", required=True)
+	# parser.add_argument("--msrp", "-ms", help="Specify the MSRP feature.", required=True)
+	# parser.add_argument("--unitcost", "-uc", help="Specify the unit cost.", required=True)
+	# parser.add_argument("--unitprice", "-up", help="Specify the unit price.", required=True)
+	# parser.add_argument("--win", "-w", help="Specify the win.", required=True)
+	# parser.add_argument("--units", "-u", help="Specify the units.", required=True)
+	# parser.add_argument("--model", "-m", help="Specify the model.", required=True)
+	# parser.add_argument("--government", "-g", help="Specify the government.", required=False)
+	# parser.add_argument("--cons", "-c", help="Specify the constraint.", required=False)
+	# parser.add_argument("--margin_threshold", "-t", help="Specify the constraint margin_threshold.", required=False)
+	#
+	# # parser.add_argument("--size", "-s", help="Specify the size.", required=False)
+	# args = parser.parse_args()
+	#
+	# env = 'local'
+	# if args.env is None:
+	# 	print("State the environment!!")
 	# else:
-	# 	size = args.size
+	# 	env = args.env
+	#
+	# file = None
+	# if args.file is None:
+	# 	print("State the input file!!")
+	# else:
+	# 	file = args.file
+	#
+	# msrp = None
+	# if args.msrp is None:
+	# 	print("State the msrp!!")
+	# else:
+	# 	msrp = args.msrp
+	#
+	# unit_cost = None
+	# if args.unitcost is None:
+	# 	print("State the unitcost!!")
+	# else:
+	# 	unit_cost = args.unitcost
+	#
+	# unit_price = None
+	# if args.unitprice is None:
+	# 	print("State the unitprice!!")
+	# else:
+	# 	unit_price = args.unitprice
+	#
+	# win = None
+	# if args.win is None:
+	# 	print("State the win!!")
+	# else:
+	# 	win = args.win
+	#
+	# units = None
+	# if args.units is None:
+	# 	print("State the units!!")
+	# else:
+	# 	units = args.units
+	#
+	# model = None
+	# if args.model is None:
+	# 	print("State the model!!")
+	# else:
+	# 	model = args.model
+	#
+	# government = None
+	# if args.government is None:
+	# 	print("State the government!!")
+	# else:
+	# 	government = args.government
+	#
+	# cons = None
+	# if args.cons is None:
+	# 	print("State the constraint!!")
+	# else:
+	# 	cons = args.cons
+	#
+	# margin_threshold = None
+	# if args.margin_threshold is None:
+	# 	print("State the margin_threshold!!")
+	# else:
+	# 	margin_threshold = args.margin_threshold
+	#
+	#
+	# # size = None
+	# # if args.size is None:
+	# # 	print("State the size!!")
+	# # else:
+	# # 	size = args.size
+
+	# test case 1
+
+	env = 'prod'
+	file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/fleet_sales.csv'
+	msrp = 'MSRP'
+	unit_cost = 'Unit_Cost'
+	unit_price = 'Unit_Price'
+	win = 'Win'
+	units = 'Units'
+	government = 'Government'
+	cons = 'prob > 0.8'
+	margin_threshold = '50'
+	model_ ='price_model'
+	# model_ = 'segmented_model'
+	# model_ ='size_model'
 
 	print('env:',env)
 	print('file:',file)
@@ -132,41 +148,49 @@ if __name__== '__main__':
 	print('unit_price:',unit_price)
 	print('win:',win)
 	print('units:',units)
-	print('model:',model)	
+	print('model:',model_)
 	print('government:',government)
 	print('constraint:',cons)
-	print('margin_threshold:',margin_threshold)	
-	# print('size:',size)
+	print('margin_threshold:',margin_threshold)
+
+	# test case 2
+	file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/segmented_model.csv'
+	model_ = 'segmented_model'
+
+	# test case 3
+	file = 'https://raw.githubusercontent.com/acceval/Win-Probability/main/size_model.csv'
+	model_ = 'size_model'
+
 	print('-------------------------------------------')
-	
-	if file is not None and msrp is not None and unit_cost is not None and unit_price is not None and win is not None and units is not None and model is not None:
 
-		if model=='price_model':
+	if file is not None and msrp is not None and unit_cost is not None and unit_price is not None and win is not None and units is not None and model_ is not None:
 
-			model = Model(env)		
+		if model_=='price_model':
+
+			model = Model(env)
 			output = model.price_model(file,msrp,unit_cost,unit_price,win,units,cons,margin_threshold)
 			print(type(output))
-			print(output)		
+			print(output)
 
-		if model=='segmented_model':
+		if model_=='segmented_model':
 
-			model = Model(env)		
+			model = Model(env)
 			output = model.segmented_model(file,msrp,unit_cost,unit_price,win,units,government,cons,margin_threshold)
 			print(type(output))
-			print(output)		
+			print(output)
 
-		if model=='size_model':
+		if model_=='size_model':
 
-			model = Model(env)		
+			model = Model(env)
 			output = model.size_model(file,msrp,unit_cost,unit_price,win,units,government,cons,margin_threshold)
 			print(type(output))
-			print(output)		
+			print(output)
 
 
-			
+
 
 	else:
-		
+
 		print('Error !!')
 
 
@@ -186,5 +210,4 @@ if __name__== '__main__':
 	log.print_(msg)
 
 	msg = 'total:',end-start
-	log.print_(msg)	
-	
+	log.print_(msg)
