@@ -120,6 +120,6 @@ curl -X POST -H 'Accept: application/json' -H 'Accept-Encoding: gzip, deflate' -
 To run this model locally:
 1. Create virtual environment.
 2. Install all the necessary libraries
-3. run `python main/py`
+3. run `python main.py`
 4. There are 3 test cases provided, uncomment the scenario you want to run and comment the scenario you do not want to run
 
